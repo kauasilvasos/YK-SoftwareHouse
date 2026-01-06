@@ -125,8 +125,55 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
+            /* Títulos menores para caber na tela */
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; margin-bottom: 1rem; }
+            p.subtitle { font-size: 1rem; margin-bottom: 1rem; }
+
+            /* CORREÇÃO 1: FAIXA DE LINGUAGENS (MARQUEE) 
+               Subimos ela 60px para não ficar atrás dos botões de voltar/home do celular */
+            .tech-marquee {
+                bottom: 60px; 
+            }
+
+            /* CORREÇÃO 2: SLIDES E TÍTULO CORTADO 
+               Em vez de centralizar (que corta o topo), alinhamos ao topo com espaço (padding) */
+            section.slide {
+                justify-content: flex-start; /* Alinha tudo no topo */
+                padding-top: 80px; /* Espaço para o título não colar no teto */
+                overflow-y: auto; /* Permite rolar dentro do slide se ainda assim não couber */
+            }
+
+            /* CORREÇÃO 3: CARTÕES MENORES (PORTFÓLIO) 
+               Reduzimos a imagem e o tamanho geral para caberem 3 na tela */
+            .portfolio-gallery {
+                gap: 10px; /* Menos espaço entre eles */
+                margin-top: 0.5rem;
+            }
+
+            .portfolio-card {
+                width: 90%; /* Ocupa largura disponível */
+                max-width: 320px;
+                padding: 8px; /* Borda interna menor */
+                display: flex; /* Mudança estratégica: Layout horizontal no celular? */
+                flex-direction: column; /* Mantemos vertical, mas compacto */
+            }
+
+            .portfolio-img {
+                height: 100px; /* Reduzi de 160px para 100px. Economiza 180px no total! */
+            }
+
+            .portfolio-info h3 {
+                font-size: 1rem;
+            }
+            
+            .portfolio-info p {
+                font-size: 0.8rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 2; /* Limita a 2 linhas */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
         }
 
         .portfolio-gallery {
