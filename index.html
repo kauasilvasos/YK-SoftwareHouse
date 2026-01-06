@@ -32,6 +32,8 @@
             overflow-y: scroll; 
             scroll-snap-type: y mandatory; 
             scroll-behavior: smooth; 
+            -webkit-overflow-scrolling: touch; 
+            overscroll-behavior-y: none;
         }
 
         section.slide {
@@ -135,7 +137,8 @@
 
             section.slide {
                 justify-content: flex-start; 
-                padding-top: 80px; 
+                padding-top: 80px;
+                padding-bottom: 50px; 
                 overflow-y: auto; 
             }
 
@@ -284,8 +287,7 @@
             <h2>O Vendedor que Nunca Dorme</h2>
             <p class="subtitle">Automatize seu WhatsApp. Triagem de clientes, agendamentos e suporte 24/7 sem custo humano.</p>
             
-            <img src="assets/chat_demo.png" alt="Chatbot Demo" style="height: 400px; width: auto; border-radius: 20px;">
-
+            <img src="assets/chat_demo.png" alt="Chatbot Demo" style="max-height: 40vh; width: auto; max-width: 90%; border-radius: 20px; object-fit: contain;">
             <ul style="text-align: left; color: var(--text-secondary); list-style: none;">
                 <li>✅ Atendimento imediato</li>
                 <li>✅ Integração com CRM</li>
