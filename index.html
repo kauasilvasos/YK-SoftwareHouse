@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protótipo Software House Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #0f0f13; 
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-color: #00d2ff; 
+            --gradient-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            overflow: hidden; 
+        }
+
+        .main-container {
+            height: 100vh; 
+            overflow-y: scroll; 
+            scroll-snap-type: y mandatory; 
+            scroll-behavior: smooth; 
+        }
+
+        section.slide {
+            height: 100vh; 
+            scroll-snap-align: start; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid #ffffff10; 
+            position: relative; 
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, #ffffff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .mockup-box {
+            width: 80%;
+            max-width: 500px;
+            height: 300px;
+            background: rgba(255,255,255,0.05);
+            border: 2px dashed var(--accent-color);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-secondary);
+            font-weight: bold;
+            margin: 2rem 0;
+        }
+
+        .demo-interactive {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+        }
+        .demo-input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: #2a2a3a;
+            color: white;
+        }
+        .demo-output {
+            background: #1a1a2e;
+            padding: 1rem;
+            border-radius: 8px;
+            color: var(--accent-color);
+            text-align: left;
+            min-height: 80px;
+        }
+
+        .btn-cta {
+            padding: 1rem 2.5rem;
+            background-color: var(--accent-color);
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
+        }
+        .btn-cta:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+        }
+
+        .portfolio-gallery {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .portfolio-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px); 
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2);
+            border-color: var(--accent-color);
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 160px; 
+            object-fit: cover; 
+            object-position: top;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-info h3 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 5px;
+            background: none; 
+            -webkit-text-fill-color: white;
+        }
+
+        .portfolio-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        .tech-marquee {
+            background: #000;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 15px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .tech-track {
+            display: inline-block;
+            animation: slide 20s linear infinite;
+        }
+
+        .tech-item {
+            display: inline-block;
+            color: #555; 
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 30px;
+            text-transform: uppercase;
+            font-family: monospace;
+        }
+
+        @keyframes slide {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="main-container">
+
+        <section class="slide" style="background: var(--gradient-bg);">
+            <h1>Transformamos Tecnologia em Lucro.</h1>
+            <p class="subtitle">Desenvolvimento de Software, Automação e Inteligência Artificial sob medida para o seu negócio.</p>
+            <small style="color: var(--text-secondary); margin-top: 2rem;">(Role para baixo para apresentar)</small>
+            <div class="tech-marquee">
+                <div class="tech-track">
+                    <span class="tech-item">PYTHON</span>
+                    <span class="tech-item">REACT</span>
+                    <span class="tech-item">OPENAI API</span>
+                    <span class="tech-item">AWS CLOUD</span>
+                    <span class="tech-item">NODE.JS</span>
+                    <span class="tech-item">FLUTTER</span>
+                    <span class="tech-item">JAVA</span>
+                    
+                    <span class="tech-item">PYTHON</span>
+                    <span class="tech-item">REACT</span>
+                    <span class="tech-item">OPENAI API</span>
+                    <span class="tech-item">AWS CLOUD</span>
+                    <span class="tech-item">NODE.JS</span>
+                    <span class="tech-item">FLUTTER</span>
+                    <span class="tech-item">JAVA</span>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="slide">
+            <h2>O Vendedor que Nunca Dorme</h2>
+            <p class="subtitle">Automatize seu WhatsApp. Triagem de clientes, agendamentos e suporte 24/7 sem custo humano.</p>
+            
+            <img src="assets/chat_demo.png" alt="Chatbot Demo" style="height: 400px; width: auto; border-radius: 20px;">
+
+            <ul style="text-align: left; color: var(--text-secondary); list-style: none;">
+                <li>✅ Atendimento imediato</li>
+                <li>✅ Integração com CRM</li>
+                <li>✅ Redução de custos operacionais</li>
+            </ul>
+        </section>
+
+        <section class="slide">
+            <h2>Sua Empresa Existe no Digital?</h2>
+            <p class="subtitle">Não fazemos apenas sites bonitos. Criamos máquinas de vendas otimizadas para o Google e focadas em conversão.</p>
+
+            <div class="portfolio-gallery">
+                
+                <div class="portfolio-card">
+                    <img src="assets/site_adv.png" alt="Site Advocacia" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>Institucional & Autoridade</h3>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <img src="assets/site_loja.png" alt="Loja Virtual" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>E-commerce & Vendas</h3>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <img src="assets/site_dashboard.png" alt="Sistema Web" class="portfolio-img">
+                    <div class="portfolio-info">
+                        <h3>Sistemas Web (SaaS)</h3>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="slide" style="background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);">
+            <h2>O Poder da I.A. no seu Negócio</h2>
+            <p class="subtitle">Usamos algoritmos avançados (como LLMs) para ler dados, gerar conteúdo e automatizar tarefas complexas.</p>
+
+            <img src="assets/ai_demo.png" alt="Interface IA" style="width: 100%; max-width: 700px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        </section>
+
+        <section class="slide">
+            <h2>Vamos Acelerar seu Projeto?</h2>
+            <p class="subtitle">Apps Mobile, Sistemas SaaS, Integrações de API e tudo o que sua empresa precisa para escalar.</p>
+
+            <div style="margin: 3rem 0;">
+                <span style="font-size: 2rem; margin: 0 15px;">📱</span>
+                <span style="font-size: 2rem; margin: 0 15px;">☁️</span>
+                <span style="font-size: 2rem; margin: 0 15px;">⚙️</span>
+            </div>
+
+            <a 
+                href="https://wa.me/5548985036092?text=Ol%C3%A1!%20Vi%20a%20apresenta%C3%A7%C3%A3o%20da%20Software%20House%20e%20gostaria%20de%20falar%20sobre%20um%20projeto." 
+                class="btn-cta" 
+                target="_blank"
+            >
+                Chamar no WhatsApp
+            </a>
+
+            <footer style="position: absolute; bottom: 20px; font-size: 0.8rem; color: var(--text-secondary);">
+                © 2024 YK Software House. Todos os direitos reservados.
+            </footer>
+            <style>
+                .timeline-steps {
+                    display: flex;
+                    justify-content: center;
+                    gap: 30px;
+                    margin: 2rem 0;
+                    text-align: left;
+                }
+                .step {
+                    background: rgba(255,255,255,0.05);
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    width: 200px;
+                    border-left: 3px solid var(--accent-color);
+                }
+                .step h4 { color: #fff; margin-bottom: 5px; font-size: 1rem; }
+                .step p { font-size: 0.8rem; color: var(--text-secondary); margin: 0; }
+            </style>
+
+            <div class="timeline-steps">
+                <div class="step">
+                    <h4>1. Briefing Flash</h4>
+                    <p>Entendemos sua dor em uma reunião de 30min.</p>
+                </div>
+                <div class="step">
+                    <h4>2. Sprint Ágil</h4>
+                    <p>Desenvolvimento focado. Entregas em semanas, não meses.</p>
+                </div>
+                <div class="step">
+                    <h4>3. Validação</h4>
+                    <p>Testes, ajustes finais e entrega pronta para uso.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
